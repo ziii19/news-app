@@ -11,7 +11,7 @@ class SplashPage extends StatelessWidget {
     Future.delayed(const Duration(seconds: 3))
         .then((value) => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const RegisterPage()),
+              MaterialPageRoute(builder: (context) => const LoginPage()),
               (route) => false,
             ));
     return Scaffold(
