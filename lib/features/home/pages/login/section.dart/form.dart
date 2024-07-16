@@ -1,20 +1,37 @@
 part of '../page.dart';
 
-class _FormLogin extends StatelessWidget {
+class _FormLogin extends StatefulWidget {
   const _FormLogin();
+
+  @override
+  State<_FormLogin> createState() => _FormLoginState();
+}
+
+class _FormLoginState extends State<_FormLogin> {
+  TextEditingController mailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Form(
+            key: _formKey,
             child: Column(
-          children: [
-            const RegularTextInput(hintText: 'Email'),
-            Dimens.dp16.height,
-            const RegularTextInput(hintText: 'Password'),
-          ],
-        )),
+              children: [
+                RegularTextInput(
+                  hintText: 'Email',
+                  controller: mailController,
+                ),
+                Dimens.dp16.height,
+                RegularTextInput(
+                  hintText: 'Password',
+                  controller: passController,
+                ),
+              ],
+            )),
         Dimens.dp32.height,
         SizedBox(
           width: double.infinity,
