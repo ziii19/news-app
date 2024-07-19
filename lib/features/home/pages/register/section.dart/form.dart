@@ -10,7 +10,11 @@ class _FormRegister extends StatelessWidget {
         Form(
             child: Column(
           children: [
-            const RegularTextInput(hintText: 'Full Name'),
+            const RegularTextInput(hintText: 'Username'),
+            Dimens.dp16.height,
+            const RegularTextInput(hintText: 'First Name'),
+            Dimens.dp16.height,
+            const RegularTextInput(hintText: 'Last Name'),
             Dimens.dp16.height,
             const RegularTextInput(hintText: 'Email'),
             Dimens.dp16.height,
