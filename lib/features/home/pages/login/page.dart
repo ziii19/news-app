@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
 import 'package:news/features/home/components/input.dart';
 import 'package:news/features/home/home.dart';
+import 'package:news/features/home/pages/main/page.dart';
 
 part 'section.dart/form.dart';
 

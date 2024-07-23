@@ -56,14 +56,16 @@ class _FormLoginState extends State<_FormLogin> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  setState(() {
-                    email = mailController.text;
-                    password = passController.text;
-                  });
-                  //  login method
-                  // login();
-                }
+                // if (_formKey.currentState!.validate()) {
+                //   setState(() {
+                //     email = mailController.text;
+                //     password = passController.text;
+                //   });
+                //   //  login method
+                //   // login();
+                // }
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MainPage()));
               },
               child: Text(
                 'Sign In',
