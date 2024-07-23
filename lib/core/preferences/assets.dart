@@ -4,4 +4,5 @@ class MainAssets {
   static const path = 'assets/images';
 
   static const book = '$path/book.png';
+  static const train = '$path/train.png';
 }
