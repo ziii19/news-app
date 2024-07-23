@@ -8,6 +8,7 @@ class _FormLogin extends StatefulWidget {
 }
 
 class _FormLoginState extends State<_FormLogin> {
+  String? email, password;
   TextEditingController mailController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
@@ -22,13 +23,26 @@ class _FormLoginState extends State<_FormLogin> {
             child: Column(
               children: [
                 RegularTextInput(
+                  keyboardType: TextInputType.emailAddress,
                   hintText: 'Email',
                   controller: mailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter E-mail';
+                    }
+                    return null;
+                  },
                 ),
                 Dimens.dp16.height,
-                RegularTextInput(
-                  hintText: 'Password',
+                InputPassword(
+                  hintText: "Password",
                   controller: passController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter password';
+                    }
+                    return null;
+                  },
                 ),
               ],
             )),
@@ -41,7 +55,16 @@ class _FormLoginState extends State<_FormLogin> {
                   backgroundColor: primary,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
-              onPressed: () {},
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  setState(() {
+                    email = mailController.text;
+                    password = passController.text;
+                  });
+                  //  login method
+                  // login();
+                }
+              },
               child: Text(
                 'Sign In',
                 style: GoogleFonts.poppins(
