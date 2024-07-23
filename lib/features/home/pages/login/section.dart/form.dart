@@ -64,8 +64,11 @@ class _FormLoginState extends State<_FormLogin> {
                 //   //  login method
                 //   // login();
                 // }
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const MainPage()));
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MainPage()),
+                  (route) => false,
+                );
               },
               child: Text(
                 'Sign In',
