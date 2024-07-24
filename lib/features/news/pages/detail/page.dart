@@ -49,14 +49,18 @@ class DetailNewsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
+      body: ListView(
         children: [
-          const ImageSection(),
-          Dimens.dp6.height,
-          const NewsTextSection(
-            title: 'IND v/s SA ICC T20 WC',
-            description:
-                'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.lamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
+          Column(
+            children: [
+              const ImageSection(),
+              Dimens.dp6.height,
+              const NewsTextSection(
+                title: 'IND v/s SA ICC T20 WC',
+                description:
+                    'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.lamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
+              ),
+            ],
           ),
         ],
       ),
