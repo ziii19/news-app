@@ -15,94 +15,122 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          InkWell(
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SafeArea(
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverToBoxAdapter(
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey.withOpacity(.5),
-                        // image:
-                      ),
+                    const Icon(
+                      Icons.newspaper_rounded,
+                      size: 25,
+                      color: primary,
                     ),
-                    Dimens.dp18.width,
                     Text(
-                      'Jonathan Smith',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: black,
-                      ),
+                      'NewsApp',
+                      style: GoogleFonts.comfortaa(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: primary),
                     )
                   ],
                 ),
               ),
             ),
-          ),
-          const SettingItem(
-            icon: Icons.language,
-            title: 'Select Language',
-            subtitle: 'English',
-          ),
-          const SettingItem(
-            icon: Icons.location_on,
-            title: 'Select Location',
-            subtitle: 'Delhi',
-          ),
-          Card(
-            child: SwitchListTile(
-              title: Row(
-                children: [
-                  const Icon(Icons.sunny),
-                  Dimens.dp12.width,
-                  const Text('Dark Theme'),
-                ],
-              ),
-              value: isDark,
-              onChanged: (value) {
-                setState(() {
-                  isDark = value;
-                });
-              },
-            ),
-          ),
-          const SettingItem(
-            icon: Icons.notifications,
-            title: 'Notifications',
-          ),
-          const SettingItem(
-            icon: Icons.info_outline,
-            title: 'About us',
-          ),
-          const SettingItem(
-            icon: Icons.headset_mic,
-            title: 'Contact us',
-          ),
-          const SettingItem(
-            icon: Icons.feedback,
-            title: 'Feedback',
-          ),
-          const SettingItem(
-            icon: Icons.share,
-            title: 'Refer the App',
-          ),
-          const SettingItem(
-            icon: Icons.star,
-            title: 'Rate us',
-          ),
-          const SettingItem(
-            icon: Icons.logout,
-            title: 'Sign out',
-          ),
+          )
         ],
+        body: ListView(
+          children: [
+            InkWell(
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SafeArea(
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey.withOpacity(.5),
+                          // image:
+                        ),
+                      ),
+                      Dimens.dp18.width,
+                      Text(
+                        'Jonathan Smith',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: black,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SettingItem(
+              icon: Icons.language,
+              title: 'Select Language',
+              subtitle: 'English',
+            ),
+            const SettingItem(
+              icon: Icons.location_on,
+              title: 'Select Location',
+              subtitle: 'Delhi',
+            ),
+            Card(
+              child: SwitchListTile(
+                title: Row(
+                  children: [
+                    const Icon(Icons.sunny),
+                    Dimens.dp12.width,
+                    const Text('Dark Theme'),
+                  ],
+                ),
+                value: isDark,
+                onChanged: (value) {
+                  setState(() {
+                    isDark = value;
+                  });
+                },
+              ),
+            ),
+            const SettingItem(
+              icon: Icons.notifications,
+              title: 'Notifications',
+            ),
+            const SettingItem(
+              icon: Icons.info_outline,
+              title: 'About us',
+            ),
+            const SettingItem(
+              icon: Icons.headset_mic,
+              title: 'Contact us',
+            ),
+            const SettingItem(
+              icon: Icons.feedback,
+              title: 'Feedback',
+            ),
+            const SettingItem(
+              icon: Icons.share,
+              title: 'Refer the App',
+            ),
+            const SettingItem(
+              icon: Icons.star,
+              title: 'Rate us',
+            ),
+            const SettingItem(
+              icon: Icons.logout,
+              title: 'Sign out',
+            ),
+          ],
+        ),
       ),
     );
   }
