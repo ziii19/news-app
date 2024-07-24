@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
+import 'package:news/features/control/control.dart';
 
 part 'section/build_card.dart';
 
@@ -83,7 +85,10 @@ class _ControlPageState extends State<ControlPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              CupertinoPageRoute(builder: (context) => const FormNewsPage()));
+        },
         child: const Icon(Icons.add),
       ),
     );
