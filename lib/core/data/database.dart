@@ -111,7 +111,7 @@ class Database {
           throw Exception('Failed to get user data');
         }
       } else {
-        throw Exception('No auth token found');
+        throw Exception('No auth token found (User is not logged in)');
       }
     } on DioException catch (e) {
       throw Exception('Network error: ${e.response?.data['message']}');
