@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:news/features/profile/models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,8 +10,10 @@ class Database {
   Dio get dio {
     return Dio()
       ..options = BaseOptions(
+        baseUrl: 'http://portal-berita.test/api',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
           'Authorization': 'Bearer $auth'
         },
       );
@@ -21,7 +22,7 @@ class Database {
   Future<(bool, String)> login(String email, String password) async {
     try {
       final response = await Dio().post(
-        'http://portal-berita.test/api/login',
+        '/login',
         data: {"email": email, "password": password},
       );
 
@@ -55,7 +56,7 @@ class Database {
     }
   }
 
-  Future<String> register({
+  Future<(bool, String)> register({
     required String username,
     required String firstname,
     String? lastname,
@@ -64,29 +65,27 @@ class Database {
   }) async {
     try {
       final response = await dio.post(
-        'http://portal-berita.test/api/register',
+        '/register',
         data: {
-          "email": email,
-          "username": username,
-          "firstname": firstname,
-          "lastname": lastname,
-          "password": password,
+          'username': username,
+          'firstname': firstname,
+          'lastname': lastname ?? '',
+          'email': email,
+          'password': password
         },
       );
 
       if (response.statusCode == 200) {
-        return response.data['message'];
+        return (true, response.data['message'] as String);
       } else {
-        return response.data['message'];
+        return (false, response.data['message'] as String);
       }
     } on DioException catch (e) {
       if (e.response != null) {
-        // The server responded with an error
-        final data = e.response?.data;
-        throw ErrorDescription('${data['message'] ?? 'Unknown error'}');
+        final data = e.response!.data;
+        return (false, data['message'] as String);
       } else {
-        // Some other error occurred
-        throw 'Error: ${e.message}';
+        return (false, 'Network error: ${e.message.toString()}');
       }
     }
   }
@@ -98,7 +97,7 @@ class Database {
       auth = prefs.getString('token');
 
       if (auth != null) {
-        final response = await dio.get('http://portal-berita.test/api/user');
+        final response = await dio.get('user');
 
         if (response.statusCode == 200) {
           final userData = response.data;
@@ -125,7 +124,7 @@ class Database {
       auth = prefs.getString('token');
 
       // Logout and remove personal access token from database
-      await dio.get('http://portal-berita.test/api/logout');
+      await dio.get('logout');
 
       // remove token from SharedPreferences
       prefs.remove('token');
