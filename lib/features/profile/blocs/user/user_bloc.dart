@@ -22,6 +22,31 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
     });
 
+    on<RegisterEvent>((event, emit) async {
+      try {
+        emit(state.copywith(status: Status.loading));
+
+        final response = await Database().register(
+          username: event.username,
+          firstname: event.firstname,
+          lastname: event.lastname,
+          email: event.email,
+          password: event.password,
+        );
+
+        if (response.$1) {
+          final user = await Database().getUser();
+
+          emit(state.copywith(
+              status: Status.success, message: response.$2, user: user));
+        } else {
+          emit(state.copywith(status: Status.failure, error: response.$2));
+        }
+      } on Database catch (e) {
+        emit(state.copywith(status: Status.failure, error: e.toString()));
+      }
+    });
+
     on<LoginEvent>((event, emit) async {
       try {
         emit(state.copywith(status: Status.loading));
