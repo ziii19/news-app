@@ -17,6 +17,17 @@ class _FormRegisterState extends State<_FormRegister> {
   TextEditingController passConfirmController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  void register() {
+    context.read<UserBloc>().add(RegisterEvent(
+          username: username!,
+          firstname: firstname!,
+          lastname: lastname!,
+          email: email!,
+          password: password!,
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -114,7 +125,7 @@ class _FormRegisterState extends State<_FormRegister> {
                 });
                 if (password == passConfirm) {
                   // register method
-                  // register();
+                  register();
                 } else {
                   SnackBar snackBar = const SnackBar(
                       content: Text(

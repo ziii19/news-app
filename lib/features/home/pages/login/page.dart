@@ -81,10 +81,12 @@ class _LoginPageState extends State<LoginPage> {
                 Dimens.dp10.height,
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const RegisterPage()));
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const RegisterPage()),
+                      (route) => false,
+                    );
                   },
                   child: Text(
                     "Sign Up",

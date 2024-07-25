@@ -35,10 +35,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         );
 
         if (response.$1) {
-          final user = await Database().getUser();
-
-          emit(state.copywith(
-              status: Status.success, message: response.$2, user: user));
+          emit(state.copywith(status: Status.success, message: response.$2));
         } else {
           emit(state.copywith(status: Status.failure, error: response.$2));
         }

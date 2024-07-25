@@ -21,7 +21,7 @@ class Database {
 
   Future<(bool, String)> login(String email, String password) async {
     try {
-      final response = await Dio().post(
+      final response = await dio.post(
         '/login',
         data: {"email": email, "password": password},
       );
@@ -97,7 +97,7 @@ class Database {
       auth = prefs.getString('token');
 
       if (auth != null) {
-        final response = await dio.get('user');
+        final response = await dio.get('/user');
 
         if (response.statusCode == 200) {
           final userData = response.data;
@@ -124,7 +124,7 @@ class Database {
       auth = prefs.getString('token');
 
       // Logout and remove personal access token from database
-      await dio.get('logout');
+      await dio.get('/logout');
 
       // remove token from SharedPreferences
       prefs.remove('token');
