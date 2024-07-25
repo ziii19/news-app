@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
+import 'package:news/features/home/home.dart';
+import 'package:news/features/profile/blocs/blocs.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -11,6 +14,18 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   bool isDark = false;
+
+  void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +140,18 @@ class _SettingPageState extends State<SettingPage> {
               icon: Icons.star,
               title: 'Rate us',
             ),
-            const SettingItem(
+            SettingItem(
+              onTap: () {
+                showLoadingDialog(context);
+                Future.delayed(const Duration(seconds: 2)).then((value) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    (route) => false,
+                  );
+                  context.read<UserBloc>().add(LogoutEvent());
+                });
+              },
               icon: Icons.logout,
               title: 'Sign out',
             ),
