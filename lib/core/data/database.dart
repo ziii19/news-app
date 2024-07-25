@@ -69,7 +69,7 @@ class Database {
         data: {
           'username': username,
           'firstname': firstname,
-          'lastname': lastname ?? '',
+          'lastname': lastname,
           'email': email,
           'password': password
         },
