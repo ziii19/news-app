@@ -14,6 +14,12 @@ class _FormLoginState extends State<_FormLogin> {
 
   final _formKey = GlobalKey<FormState>();
 
+  void login() {
+    context
+        .read<UserBloc>()
+        .add(LoginEvent(email: email!, password: password!));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,19 +62,14 @@ class _FormLoginState extends State<_FormLogin> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
               onPressed: () {
-                // if (_formKey.currentState!.validate()) {
-                //   setState(() {
-                //     email = mailController.text;
-                //     password = passController.text;
-                //   });
-                //   //  login method
-                //   // login();
-                // }
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainPage()),
-                  (route) => false,
-                );
+                if (_formKey.currentState!.validate()) {
+                  setState(() {
+                    email = mailController.text;
+                    password = passController.text;
+                  });
+                  //  login method
+                  login();
+                }
               },
               child: Text(
                 'Sign In',
