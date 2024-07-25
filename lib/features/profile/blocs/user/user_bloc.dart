@@ -9,7 +9,7 @@ part 'user_state.dart';
 part 'user_bloc.freezed.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc() : super(_Initial()) {
+  UserBloc() : super(UserState.initial()) {
     on<UserEvent>((event, emit) {
       // TODO: implement event handler
     });
