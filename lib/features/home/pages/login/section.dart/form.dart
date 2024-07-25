@@ -15,9 +15,11 @@ class _FormLoginState extends State<_FormLogin> {
   final _formKey = GlobalKey<FormState>();
 
   void login() {
-    context
-        .read<UserBloc>()
-        .add(LoginEvent(email: email!, password: password!));
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      context
+          .read<UserBloc>()
+          .add(LoginEvent(email: email!, password: password!));
+    });
   }
 
   @override
@@ -56,26 +58,37 @@ class _FormLoginState extends State<_FormLogin> {
         SizedBox(
           width: double.infinity,
           height: 50,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: primary,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8))),
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  setState(() {
-                    email = mailController.text;
-                    password = passController.text;
-                  });
-                  //  login method
-                  login();
-                }
-              },
-              child: Text(
-                'Sign In',
-                style: GoogleFonts.poppins(
-                    fontSize: 16, fontWeight: FontWeight.w500, color: white),
-              )),
+          child: BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: primary,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  onPressed: state.status == Status.loading
+                      ? null
+                      : () {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              email = mailController.text;
+                              password = passController.text;
+                            });
+                            //  login method
+
+                            login();
+                          }
+                        },
+                  child: state.status == Status.loading
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          'Sign In',
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: white),
+                        ));
+            },
+          ),
         )
       ],
     );

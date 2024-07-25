@@ -19,13 +19,15 @@ class _FormRegisterState extends State<_FormRegister> {
   final _formKey = GlobalKey<FormState>();
 
   void register() {
-    context.read<UserBloc>().add(RegisterEvent(
-          username: username!,
-          firstname: firstname!,
-          lastname: lastname!,
-          email: email!,
-          password: password!,
-        ));
+    Future.delayed(Duration(seconds: 1)).then((_) {
+      context.read<UserBloc>().add(RegisterEvent(
+            username: username!,
+            firstname: firstname!,
+            lastname: lastname!,
+            email: email!,
+            password: password!,
+          ));
+    });
   }
 
   @override
@@ -106,42 +108,51 @@ class _FormRegisterState extends State<_FormRegister> {
         SizedBox(
           width: double.infinity,
           height: 50,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                setState(() {
-                  username = usernameController.text;
-                  firstname = firstnameController.text;
-                  lastname = lastnameController.text;
-                  email = emailController.text;
-                  password = passwordController.text;
-                  passConfirm = passConfirmController.text;
-                });
-                if (password == passConfirm) {
-                  // register method
-                  register();
-                } else {
-                  SnackBar snackBar = const SnackBar(
-                      content: Text(
-                          "Please retype your password with the same value"));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-              }
+          child: BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              return ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed: state.status == Status.loading
+                    ? null
+                    : () async {
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            username = usernameController.text;
+                            firstname = firstnameController.text;
+                            lastname = lastnameController.text;
+                            email = emailController.text;
+                            password = passwordController.text;
+                            passConfirm = passConfirmController.text;
+                          });
+                          if (password == passConfirm) {
+                            // register method
+                            register();
+                          } else {
+                            SnackBar snackBar = const SnackBar(
+                                content: Text(
+                                    "Please retype your password with the same value"));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        }
+                      },
+                child: state.status == Status.loading
+                    ? const CircularProgressIndicator()
+                    : Text(
+                        'Sign Up',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: white,
+                        ),
+                      ),
+              );
             },
-            child: Text(
-              'Sign Up',
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: white,
-              ),
-            ),
           ),
         ),
       ],
