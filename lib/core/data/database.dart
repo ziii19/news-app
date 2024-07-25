@@ -18,7 +18,7 @@ class Database {
       );
   }
 
-  Future<String> login(String email, String password) async {
+  Future<(bool, String)> login(String email, String password) async {
     try {
       final response = await Dio().post(
         'http://portal-berita.test/api/login',
@@ -37,20 +37,20 @@ class Database {
         // Set token dio Authorization
         auth = token;
 
-        return data['message'];
+        return (true, data['message'] as String);
       } else {
         // Handle different status codes and errors
         final data = response.data;
-        return 'Error: ${data['message']}';
+        return (false, data['message'] as String);
       }
     } on DioException catch (e) {
       if (e.response != null) {
         // The server responded with an error
         final data = e.response!.data;
-        return 'Error: ${data['message']}';
+        return (false, data['message'] as String);
       } else {
         // Some other error occurred
-        return 'Error: ${e.message}';
+        return (false, e.message.toString());
       }
     }
   }
