@@ -74,7 +74,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: black,
                   ),
                 ),
                 Dimens.dp10.height,

@@ -25,6 +25,14 @@ class _SettingPageState extends State<SettingPage> {
         );
       },
     );
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+        (route) => false,
+      );
+      context.read<UserBloc>().add(LogoutEvent());
+    });
   }
 
   @override
@@ -47,15 +55,16 @@ class _SettingPageState extends State<SettingPage> {
                     Text(
                       'NewsApp',
                       style: GoogleFonts.comfortaa(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: primary),
-                    )
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: primary,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-          )
+          ),
         ],
         body: ListView(
           children: [
@@ -63,29 +72,33 @@ class _SettingPageState extends State<SettingPage> {
               onTap: () {},
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: SafeArea(
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey.withOpacity(.5),
-                          // image:
-                        ),
+                child: BlocBuilder<UserBloc, UserState>(
+                  builder: (context, state) {
+                    return SafeArea(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.withOpacity(.5),
+                              // image:
+                            ),
+                          ),
+                          Dimens.dp18.width,
+                          Text(
+                            state.user?.username ?? '',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              // color: black,
+                            ),
+                          ),
+                        ],
                       ),
-                      Dimens.dp18.width,
-                      Text(
-                        'Jonathan Smith',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: black,
-                        ),
-                      )
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -100,19 +113,21 @@ class _SettingPageState extends State<SettingPage> {
               subtitle: 'Delhi',
             ),
             Card(
-              child: SwitchListTile(
-                title: Row(
-                  children: [
-                    const Icon(Icons.sunny),
-                    Dimens.dp12.width,
-                    const Text('Dark Theme'),
-                  ],
-                ),
-                value: isDark,
-                onChanged: (value) {
-                  setState(() {
-                    isDark = value;
-                  });
+              child: BlocBuilder<ThemeCubit, bool>(
+                builder: (context, isDark) {
+                  return SwitchListTile(
+                    title: Row(
+                      children: [
+                        const Icon(Icons.sunny),
+                        Dimens.dp12.width,
+                        const Text('Dark Theme'),
+                      ],
+                    ),
+                    value: isDark,
+                    onChanged: (value) {
+                      context.read<ThemeCubit>().toggleTheme(value);
+                    },
+                  );
                 },
               ),
             ),
@@ -142,21 +157,50 @@ class _SettingPageState extends State<SettingPage> {
             ),
             SettingItem(
               onTap: () {
-                showLoadingDialog(context);
-                Future.delayed(const Duration(seconds: 2)).then((value) {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                    (route) => false,
-                  );
-                  context.read<UserBloc>().add(LogoutEvent());
-                });
+                confirm();
               },
               icon: Icons.logout,
               title: 'Sign out',
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void confirm() {
+    showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          "Exit Application",
+          style: TextStyle(color: Color(0xff68C4C6)),
+        ),
+        content: const Text(
+          "Are You Sure?",
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text(
+              "Yes",
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
+            onPressed: () {
+              showLoadingDialog(context);
+            },
+          ),
+          TextButton(
+            child: const Text(
+              "No",
+              style: TextStyle(color: Color(0xff68C4C6)),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
       ),
     );
   }

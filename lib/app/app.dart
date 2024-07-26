@@ -4,9 +4,14 @@ import 'package:news/features/profile/blocs/blocs.dart';
 
 import '../features/home/home.dart';
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -14,10 +19,18 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) => UserBloc(),
         ),
+        BlocProvider(create: (context) => ThemeCubit()..loadTheme()),
       ],
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SplashPage(),
+      child: BlocBuilder<ThemeCubit, bool>(
+        builder: (context, isDark) {
+          return MaterialApp(
+            theme: isDark
+                ? ThemeData.dark(useMaterial3: true)
+                : ThemeData.light(useMaterial3: true),
+            debugShowCheckedModeBanner: false,
+            home: const SplashPage(),
+          );
+        },
       ),
     );
   }

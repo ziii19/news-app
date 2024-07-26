@@ -22,7 +22,6 @@ class NewsTextSection extends StatelessWidget {
             style: GoogleFonts.openSans(
               fontSize: 20,
               fontWeight: FontWeight.w600,
-              color: black,
             ),
           ),
           Text(
@@ -30,7 +29,6 @@ class NewsTextSection extends StatelessWidget {
             style: GoogleFonts.openSans(
               fontSize: 18,
               fontWeight: FontWeight.w400,
-              color: black,
             ),
           )
         ],
