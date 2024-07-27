@@ -8,10 +8,12 @@ class BottomContent extends StatefulWidget {
     required this.isLike,
     required this.username,
     required this.id,
+    required this.viewCount,
   });
 
   final int id;
   final String username;
+  final int viewCount;
   final int likeCount;
   final String timeAgo;
   final bool isLike;
@@ -91,7 +93,7 @@ class _BottomContentState extends State<BottomContent> {
                     ),
                     Dimens.dp4.width,
                     Text(
-                      '2',
+                      widget.viewCount.toString(),
                       style: GoogleFonts.openSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,

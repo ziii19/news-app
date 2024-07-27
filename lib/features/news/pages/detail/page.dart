@@ -71,6 +71,7 @@ class DetailNewsPage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomContent(
         id: item.id,
+        viewCount: item.viewCount,
         likeCount: item.likes,
         timeAgo: item.createdAt,
         isLike: item.isLiked,

@@ -159,6 +159,13 @@ class Database {
     }
   }
 
+  Future<void> showContentDetail({required int id}) async {
+    // Get token from SharedPreferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    auth = prefs.getString('token');
+    await dio.get('/posts/$id');
+  }
+
   Future<void> like({required int id}) async {
     // Get token from SharedPreferences
     SharedPreferences prefs = await SharedPreferences.getInstance();

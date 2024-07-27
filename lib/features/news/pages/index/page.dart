@@ -76,9 +76,12 @@ class _NewsPageState extends State<NewsPage> {
                           title: content.title,
                           imageUrl: 'assets/images/train.png',
                           description: content.newsContent,
-                          viewCount: 2,
+                          viewCount: content.viewCount,
                           timeAgo: content.createdAt,
                           onDetail: () {
+                            context
+                                .read<NewsBloc>()
+                                .add(ShowContent(id: content.id));
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

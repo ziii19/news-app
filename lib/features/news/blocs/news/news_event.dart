@@ -9,6 +9,14 @@ class NewsEvent extends Equatable {
 
 class GetContent extends NewsEvent {}
 
+class ShowContent extends NewsEvent {
+  final int id;
+
+  const ShowContent({required this.id});
+  @override
+  List<Object> get props => [id];
+}
+
 class LikeContent extends NewsEvent {
   final int id;
 
