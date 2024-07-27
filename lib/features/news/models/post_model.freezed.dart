@@ -21,6 +21,8 @@ mixin _$PostModel {
   String get newsContent => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
   bool get isLiked => throw _privateConstructorUsedError;
+  UserModel get author => throw _privateConstructorUsedError;
+  int get viewCount => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -39,7 +41,11 @@ abstract class $PostModelCopyWith<$Res> {
       String newsContent,
       int likes,
       bool isLiked,
+      UserModel author,
+      int viewCount,
       String createdAt});
+
+  $UserModelCopyWith<$Res> get author;
 }
 
 /// @nodoc
@@ -60,6 +66,8 @@ class _$PostModelCopyWithImpl<$Res, $Val extends PostModel>
     Object? newsContent = null,
     Object? likes = null,
     Object? isLiked = null,
+    Object? author = null,
+    Object? viewCount = null,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
@@ -83,11 +91,27 @@ class _$PostModelCopyWithImpl<$Res, $Val extends PostModel>
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
               as bool,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as UserModel,
+      viewCount: null == viewCount
+          ? _value.viewCount
+          : viewCount // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res> get author {
+    return $UserModelCopyWith<$Res>(_value.author, (value) {
+      return _then(_value.copyWith(author: value) as $Val);
+    });
   }
 }
 
@@ -105,7 +129,12 @@ abstract class _$$PostModelImplCopyWith<$Res>
       String newsContent,
       int likes,
       bool isLiked,
+      UserModel author,
+      int viewCount,
       String createdAt});
+
+  @override
+  $UserModelCopyWith<$Res> get author;
 }
 
 /// @nodoc
@@ -124,6 +153,8 @@ class __$$PostModelImplCopyWithImpl<$Res>
     Object? newsContent = null,
     Object? likes = null,
     Object? isLiked = null,
+    Object? author = null,
+    Object? viewCount = null,
     Object? createdAt = null,
   }) {
     return _then(_$PostModelImpl(
@@ -147,6 +178,14 @@ class __$$PostModelImplCopyWithImpl<$Res>
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
               as bool,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as UserModel,
+      viewCount: null == viewCount
+          ? _value.viewCount
+          : viewCount // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -164,6 +203,8 @@ class _$PostModelImpl implements _PostModel {
       required this.newsContent,
       required this.likes,
       required this.isLiked,
+      required this.author,
+      required this.viewCount,
       required this.createdAt});
 
   @override
@@ -177,11 +218,15 @@ class _$PostModelImpl implements _PostModel {
   @override
   final bool isLiked;
   @override
+  final UserModel author;
+  @override
+  final int viewCount;
+  @override
   final String createdAt;
 
   @override
   String toString() {
-    return 'PostModel(id: $id, title: $title, newsContent: $newsContent, likes: $likes, isLiked: $isLiked, createdAt: $createdAt)';
+    return 'PostModel(id: $id, title: $title, newsContent: $newsContent, likes: $likes, isLiked: $isLiked, author: $author, viewCount: $viewCount, createdAt: $createdAt)';
   }
 
   @override
@@ -195,13 +240,16 @@ class _$PostModelImpl implements _PostModel {
                 other.newsContent == newsContent) &&
             (identical(other.likes, likes) || other.likes == likes) &&
             (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
+            (identical(other.author, author) || other.author == author) &&
+            (identical(other.viewCount, viewCount) ||
+                other.viewCount == viewCount) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, title, newsContent, likes, isLiked, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, title, newsContent, likes,
+      isLiked, author, viewCount, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -217,6 +265,8 @@ abstract class _PostModel implements PostModel {
       required final String newsContent,
       required final int likes,
       required final bool isLiked,
+      required final UserModel author,
+      required final int viewCount,
       required final String createdAt}) = _$PostModelImpl;
 
   @override
@@ -229,6 +279,10 @@ abstract class _PostModel implements PostModel {
   int get likes;
   @override
   bool get isLiked;
+  @override
+  UserModel get author;
+  @override
+  int get viewCount;
   @override
   String get createdAt;
   @override
