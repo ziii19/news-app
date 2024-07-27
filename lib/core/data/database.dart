@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:news/features/news/models/models.dart';
 import 'package:news/features/profile/models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -134,6 +135,28 @@ class Database {
       } else {
         throw Exception('Unknown error occurred');
       }
+    }
+  }
+
+  Future<List<PostModel>> getNewsContent() async {
+    try {
+      // Get token from SharedPreferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      auth = prefs.getString('token');
+
+      final response = await dio.get('/posts');
+
+      if (response.statusCode == 200) {
+        // Parse the response data
+        List<dynamic> data = response.data['data'];
+        print(data);
+        return data.map((item) => PostModel.fromJSON(item)).toList();
+      } else {
+        // Handle other status codes if needed
+        throw Exception('Failed to load posts');
+      }
+    } catch (e) {
+      return [];
     }
   }
 }
