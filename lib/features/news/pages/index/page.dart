@@ -76,17 +76,15 @@ class _NewsPageState extends State<NewsPage> {
                           title: content.title,
                           imageUrl: 'assets/images/train.png',
                           description: content.newsContent,
-                          shareCount: content.likes,
+                          viewCount: 2,
                           timeAgo: content.createdAt,
-                          isLike: content.isLiked,
-                          onTap: () {
-                            content.isLiked
-                                ? context
-                                    .read<NewsBloc>()
-                                    .add(LikeContent(id: content.id))
-                                : context
-                                    .read<NewsBloc>()
-                                    .add(UnlikeContent(id: content.id));
+                          onDetail: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailNewsPage(
+                                          item: content,
+                                        )));
                           },
                         );
                       },

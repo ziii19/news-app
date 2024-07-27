@@ -164,9 +164,7 @@ class Database {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     auth = prefs.getString('token');
 
-    final response = await dio.post("/posts/$id/like");
-
-    print(response);
+    await dio.post("/posts/$id/like");
   }
 
   Future<void> unlike({required int id}) async {

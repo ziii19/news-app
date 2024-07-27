@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
+import 'package:news/features/news/models/models.dart';
+
+import '../../blocs/news/news_bloc.dart';
 
 part 'section/image.dart';
 part 'section/news_text.dart';
 part 'section/bottom_content.dart';
 
 class DetailNewsPage extends StatelessWidget {
-  const DetailNewsPage({super.key});
+  const DetailNewsPage({super.key, required this.item});
+
+  final PostModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +61,21 @@ class DetailNewsPage extends StatelessWidget {
             children: [
               const ImageSection(),
               Dimens.dp6.height,
-              const NewsTextSection(
-                title: 'IND v/s SA ICC T20 WC',
-                description:
-                    'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.lamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
+              NewsTextSection(
+                title: item.title,
+                description: item.newsContent,
               ),
             ],
           ),
         ],
       ),
-      bottomNavigationBar: const BottomContent(),
+      bottomNavigationBar: BottomContent(
+        id: item.id,
+        likeCount: item.likes,
+        timeAgo: item.createdAt,
+        isLike: item.isLiked,
+        username: item.author.username,
+      ),
     );
   }
 }

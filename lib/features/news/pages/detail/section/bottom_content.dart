@@ -1,9 +1,55 @@
 part of '../page.dart';
 
-class BottomContent extends StatelessWidget {
+class BottomContent extends StatefulWidget {
   const BottomContent({
     super.key,
+    required this.likeCount,
+    required this.timeAgo,
+    required this.isLike,
+    required this.username,
+    required this.id,
   });
+
+  final int id;
+  final String username;
+  final int likeCount;
+  final String timeAgo;
+  final bool isLike;
+
+  @override
+  State<BottomContent> createState() => _BottomContentState();
+}
+
+class _BottomContentState extends State<BottomContent> {
+  late bool isLike;
+  late int likeCount;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize local state variables with widget values
+    isLike = widget.isLike;
+    likeCount = widget.likeCount;
+  }
+
+  void _toggleLike() {
+    if (isLike) {
+      context.read<NewsBloc>().add(LikeContent(id: widget.id));
+    } else {
+      context.read<NewsBloc>().add(UnlikeContent(id: widget.id));
+    }
+    setState(() {
+      // Update the like count and isLiked status
+      if (isLike) {
+        likeCount--;
+      } else {
+        likeCount++;
+      }
+      isLike = !isLike;
+    });
+
+    // Update Bloc or any other state management solution
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +77,7 @@ class BottomContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Jane Cooper',
+                  widget.username,
                   style: GoogleFonts.comfortaa(
                       fontSize: 14, fontWeight: FontWeight.bold, color: grey),
                 ),
@@ -45,7 +91,7 @@ class BottomContent extends StatelessWidget {
                     ),
                     Dimens.dp4.width,
                     Text(
-                      '76',
+                      '2',
                       style: GoogleFonts.openSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -59,7 +105,7 @@ class BottomContent extends StatelessWidget {
                     ),
                     Dimens.dp4.width,
                     Text(
-                      '17 sept 2022',
+                      widget.timeAgo,
                       style: GoogleFonts.openSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -73,14 +119,21 @@ class BottomContent extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Column(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.thumb_up_rounded,
-                    size: 30,
-                  ),
-                  Text('Like')
+                  GestureDetector(
+                      onTap: _toggleLike,
+                      child: Icon(
+                        isLike ? Icons.favorite : Icons.favorite_border,
+                        color: isLike ? Colors.red : null,
+                      )),
+                  const SizedBox(width: 4.0),
+                  Text(likeCount >= 2
+                      ? '$likeCount likes'
+                      : likeCount >= 1
+                          ? '$likeCount like'
+                          : 'like'),
                 ],
               ),
               Dimens.dp8.width,
