@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news/features/news/blocs/news/news_bloc.dart';
 import 'package:news/features/profile/blocs/blocs.dart';
 
 import '../features/home/home.dart';
@@ -18,6 +19,9 @@ class _MainAppState extends State<MainApp> {
       providers: [
         BlocProvider(
           create: (context) => UserBloc(),
+        ),
+        BlocProvider(
+          create: (context) => NewsBloc(),
         ),
         BlocProvider(create: (context) => ThemeCubit()..loadTheme()),
       ],

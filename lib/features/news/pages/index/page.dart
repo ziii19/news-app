@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
 import 'package:news/features/news/pages/detail/page.dart';
+
+import '../../blocs/news/news_bloc.dart';
 
 part 'section/build_card.dart';
 
@@ -64,20 +67,24 @@ class _NewsPageState extends State<NewsPage> {
               ),
               Dimens.dp16.height,
               Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return const _BuildNewsCard(
-                      title: 'Mumbai local train',
-                      imageUrl: 'assets/images/train.png',
-                      description:
-                          'Local train services, considered as the lifeline o',
-                      shareCount: 76,
-                      timeAgo: '2 Hours ago',
+                child: BlocBuilder<NewsBloc, NewsState>(
+                  builder: (context, state) {
+                    return ListView.separated(
+                      itemBuilder: (context, index) {
+                        final content = state.news![index];
+                        return _BuildNewsCard(
+                          title: content.title,
+                          imageUrl: 'assets/images/train.png',
+                          description: content.newsContent,
+                          shareCount: content.likes,
+                          timeAgo: content.createdAt,
+                        );
+                      },
+                      itemCount: state.news!.length,
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Dimens.dp10.height;
+                      },
                     );
-                  },
-                  itemCount: 10,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Dimens.dp10.height;
                   },
                 ),
               ),

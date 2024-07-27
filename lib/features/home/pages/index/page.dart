@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
 import 'package:news/features/home/home.dart';
 
+import '../../../news/blocs/news/news_bloc.dart';
 import '../../../profile/profile.dart';
 
 class SplashPage extends StatefulWidget {
@@ -26,6 +27,7 @@ class _SplashPageState extends State<SplashPage> {
       listener: (context, state) {
         Future.delayed(const Duration(seconds: 2)).then((_) {
           if (state.status == Status.authenticated) {
+            context.read<NewsBloc>().add(GetContent());
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const MainPage()),

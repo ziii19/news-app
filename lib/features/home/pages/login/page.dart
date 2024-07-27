@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
 import 'package:news/features/home/components/input.dart';
 import 'package:news/features/home/home.dart';
+import 'package:news/features/news/blocs/news/news_bloc.dart';
 
 import '../../../profile/profile.dart';
 
@@ -23,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
         if (state.user != null) {
+          context.read<NewsBloc>().add(GetContent());
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const MainPage()),
