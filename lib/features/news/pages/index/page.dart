@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
-import 'package:news/features/news/pages/detail/page.dart';
 
 import '../../blocs/news/news_bloc.dart';
+import '../detail/page.dart';
 
 part 'section/build_card.dart';
 
@@ -71,16 +71,26 @@ class _NewsPageState extends State<NewsPage> {
                   builder: (context, state) {
                     return ListView.separated(
                       itemBuilder: (context, index) {
-                        final content = state.news![index];
+                        final content = state.news[index];
                         return _BuildNewsCard(
                           title: content.title,
                           imageUrl: 'assets/images/train.png',
                           description: content.newsContent,
                           shareCount: content.likes,
                           timeAgo: content.createdAt,
+                          isLike: content.isLiked,
+                          onTap: () {
+                            content.isLiked
+                                ? context
+                                    .read<NewsBloc>()
+                                    .add(LikeContent(id: content.id))
+                                : context
+                                    .read<NewsBloc>()
+                                    .add(UnlikeContent(id: content.id));
+                          },
                         );
                       },
-                      itemCount: state.news!.length,
+                      itemCount: state.news.length,
                       separatorBuilder: (BuildContext context, int index) {
                         return Dimens.dp10.height;
                       },

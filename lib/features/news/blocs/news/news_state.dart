@@ -1,9 +1,10 @@
 part of 'news_bloc.dart';
 
 class NewsState extends Equatable {
-  const NewsState({this.news, this.error, this.status = Status.initial});
+  const NewsState(
+      {this.news = const [], this.error, this.status = Status.initial});
 
-  final List<PostModel>? news;
+  final List<PostModel> news;
   final String? error;
   final Status status;
 

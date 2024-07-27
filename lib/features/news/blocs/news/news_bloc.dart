@@ -20,5 +20,20 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         emit(state.copywith(status: Status.failure, error: e.toString()));
       }
     });
+
+    on<LikeContent>((event, emit) async {
+      await Database().unlike(id: event.id);
+
+      final data = await Database().getNewsContent();
+
+      emit(state.copywith(news: data));
+    });
+
+    on<UnlikeContent>((event, emit) async {
+      await Database().like(id: event.id);
+      final data = await Database().getNewsContent();
+
+      emit(state.copywith(news: data));
+    });
   }
 }

@@ -149,7 +149,6 @@ class Database {
       if (response.statusCode == 200) {
         // Parse the response data
         List<dynamic> data = response.data['data'];
-        print(data);
         return data.map((item) => PostModel.fromJSON(item)).toList();
       } else {
         // Handle other status codes if needed
@@ -158,5 +157,23 @@ class Database {
     } catch (e) {
       return [];
     }
+  }
+
+  Future<void> like({required int id}) async {
+    // Get token from SharedPreferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    auth = prefs.getString('token');
+
+    final response = await dio.post("/posts/$id/like");
+
+    print(response);
+  }
+
+  Future<void> unlike({required int id}) async {
+    // Get token from SharedPreferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    auth = prefs.getString('token');
+
+    await dio.post("/posts/$id/unlike");
   }
 }
