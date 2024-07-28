@@ -8,7 +8,7 @@ class UserModel with _$UserModel {
   factory UserModel({
     required int id,
     required String email,
-    required String image,
+    String? image,
     required String username,
     required String firstname,
     String? lastname,

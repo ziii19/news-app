@@ -22,7 +22,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   int get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get firstname => throw _privateConstructorUsedError;
   String? get lastname => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $UserModelCopyWith<$Res> {
   $Res call(
       {int id,
       String email,
-      String image,
+      String? image,
       String username,
       String firstname,
       String? lastname});
@@ -62,7 +62,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   $Res call({
     Object? id = null,
     Object? email = null,
-    Object? image = null,
+    Object? image = freezed,
     Object? username = null,
     Object? firstname = null,
     Object? lastname = freezed,
@@ -76,10 +76,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
+      image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -107,7 +107,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
   $Res call(
       {int id,
       String email,
-      String image,
+      String? image,
       String username,
       String firstname,
       String? lastname});
@@ -126,7 +126,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = null,
-    Object? image = null,
+    Object? image = freezed,
     Object? username = null,
     Object? firstname = null,
     Object? lastname = freezed,
@@ -140,10 +140,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
+      image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -166,7 +166,7 @@ class _$UserModelImpl implements _UserModel {
   _$UserModelImpl(
       {required this.id,
       required this.email,
-      required this.image,
+      this.image,
       required this.username,
       required this.firstname,
       this.lastname});
@@ -179,7 +179,7 @@ class _$UserModelImpl implements _UserModel {
   @override
   final String email;
   @override
-  final String image;
+  final String? image;
   @override
   final String username;
   @override
@@ -231,7 +231,7 @@ abstract class _UserModel implements UserModel {
   factory _UserModel(
       {required final int id,
       required final String email,
-      required final String image,
+      final String? image,
       required final String username,
       required final String firstname,
       final String? lastname}) = _$UserModelImpl;
@@ -244,7 +244,7 @@ abstract class _UserModel implements UserModel {
   @override
   String get email;
   @override
-  String get image;
+  String? get image;
   @override
   String get username;
   @override
