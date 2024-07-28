@@ -3,7 +3,10 @@ part of '../page.dart';
 class ImageSection extends StatelessWidget {
   const ImageSection({
     super.key,
+    required this.postImage,
   });
+
+  final String postImage;
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +16,8 @@ class ImageSection extends StatelessWidget {
       height: 400,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          image: const DecorationImage(
-            image: AssetImage(MainAssets.train),
+          image: DecorationImage(
+            image: NetworkImage(postImage),
             fit: BoxFit.cover,
           )),
     );

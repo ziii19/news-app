@@ -74,7 +74,7 @@ class _NewsPageState extends State<NewsPage> {
                         final content = state.news[index];
                         return _BuildNewsCard(
                           title: content.title,
-                          imageUrl: 'assets/images/train.png',
+                          imageUrl: content.postImage,
                           description: content.newsContent,
                           viewCount: content.viewCount,
                           timeAgo: content.createdAt,

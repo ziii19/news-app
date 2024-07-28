@@ -59,12 +59,15 @@ class DetailNewsPage extends StatelessWidget {
         children: [
           Column(
             children: [
-              const ImageSection(),
+              ImageSection(
+                postImage: item.postImage,
+              ),
               Dimens.dp6.height,
               NewsTextSection(
                 title: item.title,
                 description: item.newsContent,
               ),
+              Dimens.dp20.height,
             ],
           ),
         ],
