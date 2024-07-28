@@ -22,6 +22,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   int get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get firstname => throw _privateConstructorUsedError;
   String? get lastname => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ abstract class $UserModelCopyWith<$Res> {
   $Res call(
       {int id,
       String email,
+      String image,
       String username,
       String firstname,
       String? lastname});
@@ -60,6 +62,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   $Res call({
     Object? id = null,
     Object? email = null,
+    Object? image = null,
     Object? username = null,
     Object? firstname = null,
     Object? lastname = freezed,
@@ -72,6 +75,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String,
       username: null == username
           ? _value.username
@@ -100,6 +107,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
   $Res call(
       {int id,
       String email,
+      String image,
       String username,
       String firstname,
       String? lastname});
@@ -118,6 +126,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = null,
+    Object? image = null,
     Object? username = null,
     Object? firstname = null,
     Object? lastname = freezed,
@@ -130,6 +139,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String,
       username: null == username
           ? _value.username
@@ -153,6 +166,7 @@ class _$UserModelImpl implements _UserModel {
   _$UserModelImpl(
       {required this.id,
       required this.email,
+      required this.image,
       required this.username,
       required this.firstname,
       this.lastname});
@@ -165,6 +179,8 @@ class _$UserModelImpl implements _UserModel {
   @override
   final String email;
   @override
+  final String image;
+  @override
   final String username;
   @override
   final String firstname;
@@ -173,7 +189,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, email: $email, username: $username, firstname: $firstname, lastname: $lastname)';
+    return 'UserModel(id: $id, email: $email, image: $image, username: $username, firstname: $firstname, lastname: $lastname)';
   }
 
   @override
@@ -183,6 +199,7 @@ class _$UserModelImpl implements _UserModel {
             other is _$UserModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.image, image) || other.image == image) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.firstname, firstname) ||
@@ -194,7 +211,7 @@ class _$UserModelImpl implements _UserModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, email, username, firstname, lastname);
+      Object.hash(runtimeType, id, email, image, username, firstname, lastname);
 
   @JsonKey(ignore: true)
   @override
@@ -214,6 +231,7 @@ abstract class _UserModel implements UserModel {
   factory _UserModel(
       {required final int id,
       required final String email,
+      required final String image,
       required final String username,
       required final String firstname,
       final String? lastname}) = _$UserModelImpl;
@@ -225,6 +243,8 @@ abstract class _UserModel implements UserModel {
   int get id;
   @override
   String get email;
+  @override
+  String get image;
   @override
   String get username;
   @override

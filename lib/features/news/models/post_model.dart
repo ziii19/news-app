@@ -7,6 +7,7 @@ part 'post_model.freezed.dart';
 class PostModel with _$PostModel {
   factory PostModel({
     required int id,
+    required String postImage,
     required String title,
     required String newsContent,
     required int likes,
@@ -18,6 +19,7 @@ class PostModel with _$PostModel {
 
   factory PostModel.fromJSON(Map<String, dynamic> json) => PostModel(
       id: json['id'],
+      postImage: json['post_image'],
       title: json['title'],
       newsContent: json['news_content'],
       likes: json['likes'],

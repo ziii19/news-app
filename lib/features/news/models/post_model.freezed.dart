@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PostModel {
   int get id => throw _privateConstructorUsedError;
+  String get postImage => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get newsContent => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
@@ -37,6 +38,7 @@ abstract class $PostModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      String postImage,
       String title,
       String newsContent,
       int likes,
@@ -62,6 +64,7 @@ class _$PostModelCopyWithImpl<$Res, $Val extends PostModel>
   @override
   $Res call({
     Object? id = null,
+    Object? postImage = null,
     Object? title = null,
     Object? newsContent = null,
     Object? likes = null,
@@ -75,6 +78,10 @@ class _$PostModelCopyWithImpl<$Res, $Val extends PostModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      postImage: null == postImage
+          ? _value.postImage
+          : postImage // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -125,6 +132,7 @@ abstract class _$$PostModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
+      String postImage,
       String title,
       String newsContent,
       int likes,
@@ -149,6 +157,7 @@ class __$$PostModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? postImage = null,
     Object? title = null,
     Object? newsContent = null,
     Object? likes = null,
@@ -162,6 +171,10 @@ class __$$PostModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      postImage: null == postImage
+          ? _value.postImage
+          : postImage // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -199,6 +212,7 @@ class __$$PostModelImplCopyWithImpl<$Res>
 class _$PostModelImpl implements _PostModel {
   _$PostModelImpl(
       {required this.id,
+      required this.postImage,
       required this.title,
       required this.newsContent,
       required this.likes,
@@ -209,6 +223,8 @@ class _$PostModelImpl implements _PostModel {
 
   @override
   final int id;
+  @override
+  final String postImage;
   @override
   final String title;
   @override
@@ -226,7 +242,7 @@ class _$PostModelImpl implements _PostModel {
 
   @override
   String toString() {
-    return 'PostModel(id: $id, title: $title, newsContent: $newsContent, likes: $likes, isLiked: $isLiked, author: $author, viewCount: $viewCount, createdAt: $createdAt)';
+    return 'PostModel(id: $id, postImage: $postImage, title: $title, newsContent: $newsContent, likes: $likes, isLiked: $isLiked, author: $author, viewCount: $viewCount, createdAt: $createdAt)';
   }
 
   @override
@@ -235,6 +251,8 @@ class _$PostModelImpl implements _PostModel {
         (other.runtimeType == runtimeType &&
             other is _$PostModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.postImage, postImage) ||
+                other.postImage == postImage) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.newsContent, newsContent) ||
                 other.newsContent == newsContent) &&
@@ -248,8 +266,8 @@ class _$PostModelImpl implements _PostModel {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, newsContent, likes,
-      isLiked, author, viewCount, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, postImage, title,
+      newsContent, likes, isLiked, author, viewCount, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -261,6 +279,7 @@ class _$PostModelImpl implements _PostModel {
 abstract class _PostModel implements PostModel {
   factory _PostModel(
       {required final int id,
+      required final String postImage,
       required final String title,
       required final String newsContent,
       required final int likes,
@@ -271,6 +290,8 @@ abstract class _PostModel implements PostModel {
 
   @override
   int get id;
+  @override
+  String get postImage;
   @override
   String get title;
   @override
