@@ -96,11 +96,9 @@ class Database {
       // Get token from SharedPreferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
       auth = prefs.getString('token');
-      print(auth);
 
       if (auth != null) {
         final response = await dio.get('/user');
-        print(response);
 
         if (response.statusCode == 200) {
           final userData = response.data;
