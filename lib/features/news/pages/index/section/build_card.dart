@@ -41,6 +41,8 @@ class _BuildNewsCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       title,
                       style: const TextStyle(
                         fontSize: 18.0,
