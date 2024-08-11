@@ -8,6 +8,7 @@ class _BuildNewsCard extends StatelessWidget {
     required this.viewCount,
     required this.timeAgo,
     this.onDetail,
+    this.isLoading = false,
   });
 
   final String title;
@@ -16,9 +17,66 @@ class _BuildNewsCard extends StatelessWidget {
   final int viewCount;
   final String timeAgo;
   final void Function()? onDetail;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Row(
+              children: [
+                Container(
+                  width: 120,
+                  height: 120,
+                  color: Colors.white, // Placeholder untuk image
+                ),
+                const SizedBox(width: 15),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 20.0,
+                        color: Colors.white, // Placeholder untuk title
+                      ),
+                      const SizedBox(height: 4.0),
+                      Container(
+                        width: double.infinity,
+                        height: 14.0,
+                        color: Colors.white, // Placeholder untuk description
+                      ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          Container(
+                            width: 60.0,
+                            height: 14.0,
+                            color: Colors.white, // Placeholder untuk view count
+                          ),
+                          const SizedBox(width: 16.0),
+                          Container(
+                            width: 60.0,
+                            height: 14.0,
+                            color: Colors.white, // Placeholder untuk time ago
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     return GestureDetector(
       onTap: onDetail,
       child: Card(

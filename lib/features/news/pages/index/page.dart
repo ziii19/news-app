@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../blocs/news/news_bloc.dart';
 import '../detail/page.dart';
@@ -69,32 +70,60 @@ class _NewsPageState extends State<NewsPage> {
               Expanded(
                 child: BlocBuilder<NewsBloc, NewsState>(
                   builder: (context, state) {
-                    return ListView.separated(
-                      itemBuilder: (context, index) {
-                        final content = state.news[index];
-                        return _BuildNewsCard(
-                          title: content.title,
-                          imageUrl: content.postImage,
-                          description: content.newsContent,
-                          viewCount: content.viewCount,
-                          timeAgo: content.createdAt,
-                          onDetail: () {
-                            context
-                                .read<NewsBloc>()
-                                .add(ShowContent(id: content.id));
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailNewsPage(
-                                          item: content,
-                                        )));
-                          },
-                        );
-                      },
-                      itemCount: state.news.length,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Dimens.dp10.height;
-                      },
+                    if (state.status == Status.loading) {
+                      // Menampilkan placeholder shimmer
+                      return ListView.separated(
+                        itemBuilder: (context, index) {
+                          return const _BuildNewsCard(
+                            title: '',
+                            imageUrl: '',
+                            description: '',
+                            viewCount: 0,
+                            timeAgo: '',
+                            isLoading: true,
+                          );
+                        },
+                        itemCount: 3,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Dimens.dp10.height;
+                        },
+                      );
+                    }
+
+                    if (state.status == Status.success &&
+                        state.news.isNotEmpty) {
+                      return ListView.separated(
+                        itemBuilder: (context, index) {
+                          final content = state.news[index];
+                          return _BuildNewsCard(
+                            title: content.title,
+                            imageUrl: content.postImage,
+                            description: content.newsContent,
+                            viewCount: content.viewCount,
+                            timeAgo: content.createdAt,
+                            isLoading: false,
+                            onDetail: () {
+                              context
+                                  .read<NewsBloc>()
+                                  .add(ShowContent(id: content.id));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailNewsPage(
+                                            item: content,
+                                          )));
+                            },
+                          );
+                        },
+                        itemCount: state.news.length,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Dimens.dp10.height;
+                        },
+                      );
+                    }
+
+                    return const Center(
+                      child: Text('No news available'),
                     );
                   },
                 ),
