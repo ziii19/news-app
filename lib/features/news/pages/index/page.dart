@@ -66,7 +66,6 @@ class _NewsPageState extends State<NewsPage> {
                   ),
                 ),
               ),
-              // Dimens.dp16.height,
               Expanded(
                 child: BlocBuilder<NewsBloc, NewsState>(
                   builder: (context, state) {
