@@ -30,8 +30,6 @@ class _LoginPageState extends State<LoginPage> {
             MaterialPageRoute(builder: (context) => const MainPage()),
             (route) => false,
           );
-          SnackBar snackBar = SnackBar(content: Text('${state.message}'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         } else if (state.status == Status.failure) {
           SnackBar snackBar = SnackBar(content: Text('${state.error}'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
