@@ -144,7 +144,6 @@ class _BottomContentState extends State<BottomContent> {
                 children: [
                   Icon(
                     Icons.share,
-                    size: 30,
                   ),
                   Text('Share')
                 ],
