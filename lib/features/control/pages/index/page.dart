@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/core/core.dart';
 import 'package:news/features/control/control.dart';
+
+import '../../../news/blocs/news/news_bloc.dart';
+import '../../../profile/profile.dart';
 
 part 'section/build_card.dart';
 
@@ -64,21 +68,33 @@ class _ControlPageState extends State<ControlPage> {
                 ),
               ),
               Dimens.dp16.height,
-              Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return const _BuildNewsCard(
-                      title: 'Mumbai local train',
-                      imageUrl: 'assets/images/train.png',
-                      description:
-                          'Local train services, considered as the lifeline o',
-                    );
-                  },
-                  itemCount: 2,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Dimens.dp10.height;
-                  },
-                ),
+              BlocBuilder<NewsBloc, NewsState>(
+                builder: (context, state) {
+                  return BlocBuilder<UserBloc, UserState>(
+                    builder: (context, user) {
+                      final data = state.news
+                          .where(
+                            (element) => element.author.id == user.user!.id,
+                          )
+                          .toList();
+                      return Expanded(
+                        child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            return _BuildNewsCard(
+                              title: data[index].title,
+                              imageUrl: data[index].postImage,
+                              description: data[index].newsContent,
+                            );
+                          },
+                          itemCount: data.length,
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Dimens.dp10.height;
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),
