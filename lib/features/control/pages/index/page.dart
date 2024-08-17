@@ -84,6 +84,11 @@ class _ControlPageState extends State<ControlPage> {
                               title: data[index].title,
                               imageUrl: data[index].postImage,
                               description: data[index].newsContent,
+                              onDelete: () {
+                                context
+                                    .read<NewsBloc>()
+                                    .add(DeleteContent(id: data[index].id));
+                              },
                             );
                           },
                           itemCount: data.length,

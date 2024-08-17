@@ -5,11 +5,15 @@ class _BuildNewsCard extends StatelessWidget {
     required this.title,
     required this.imageUrl,
     required this.description,
+    this.onDelete,
+    this.onEdit,
   });
 
   final String title;
   final String imageUrl;
   final String description;
+  final void Function()? onDelete;
+  final void Function()? onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,7 @@ class _BuildNewsCard extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: primary,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: onEdit,
                           icon: const Icon(
                             Icons.edit,
                             color: Colors.white,
@@ -63,7 +67,7 @@ class _BuildNewsCard extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: Colors.red.withOpacity(.8),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: onDelete,
                           icon: const Icon(
                             Icons.delete_forever_rounded,
                             color: Colors.white,

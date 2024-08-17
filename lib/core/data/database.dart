@@ -204,4 +204,11 @@ class Database {
 
     print(response.data);
   }
+
+  Future<void> deleteContent({required int id}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    auth = prefs.getString('token');
+
+    await dio.delete('/posts/$id');
+  }
 }

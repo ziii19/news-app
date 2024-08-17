@@ -61,5 +61,18 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         emit(state.copywith(status: Status.failure, error: e.toString()));
       }
     });
+
+    on<DeleteContent>((event, emit) async {
+      emit(state.copywith(status: Status.loading));
+      try {
+        await Database().deleteContent(id: event.id);
+
+        final data = await Database().getNewsContent();
+
+        emit(state.copywith(status: Status.success, news: data));
+      } catch (e) {
+        emit(state.copywith(status: Status.failure, error: e.toString()));
+      }
+    });
   }
 }

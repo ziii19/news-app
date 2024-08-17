@@ -45,3 +45,12 @@ class AddContent extends NewsEvent {
   @override
   List<Object> get props => [title, newsContent, image];
 }
+
+class DeleteContent extends NewsEvent {
+  final int id;
+
+  const DeleteContent({required this.id});
+
+  @override
+  List<Object> get props => [id];
+}
