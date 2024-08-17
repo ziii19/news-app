@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:news/core/core.dart';
 import 'package:news/features/home/components/input.dart';
+import 'package:news/features/news/blocs/news/news_bloc.dart';
 
 class FormNewsPage extends StatefulWidget {
   const FormNewsPage({super.key});
@@ -15,8 +20,23 @@ class _FormNewsPageState extends State<FormNewsPage> {
 
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  XFile? image;
 
   final _formKey = GlobalKey<FormState>();
+
+  void addArticle() async {
+    if (image != null) {
+      context.read<NewsBloc>().add(AddContent(
+          title: title!, newsContent: description!, image: File(image!.path)));
+
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Create new article successfuly')));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Image must be filled!')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,21 +57,35 @@ class _FormNewsPageState extends State<FormNewsPage> {
       ),
       body: ListView(
         children: [
-          Container(
-            margin: const EdgeInsets.all(20.0),
-            width: double.infinity,
-            height: 400,
-            decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(.2),
-              borderRadius: BorderRadius.circular(20),
-              // image: const DecorationImage(
-              //   image: ,
-              //   fit: BoxFit.cover,
-              // ),
-            ),
-            child: const Icon(
-              Icons.add_a_photo_rounded,
-              size: 100,
+          GestureDetector(
+            onTap: () async {
+              var img =
+                  await ImagePicker().pickImage(source: ImageSource.gallery);
+
+              setState(() {
+                image = img;
+              });
+            },
+            child: Container(
+              margin: const EdgeInsets.all(20.0),
+              width: double.infinity,
+              height: 400,
+              decoration: BoxDecoration(
+                color: Colors.blue.withOpacity(.2),
+                borderRadius: BorderRadius.circular(20),
+                image: image != null
+                    ? DecorationImage(
+                        image: FileImage(File(image!.path)),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
+              ),
+              child: image == null
+                  ? const Icon(
+                      Icons.add_a_photo_rounded,
+                      size: 100,
+                    )
+                  : null,
             ),
           ),
           Padding(
@@ -104,7 +138,7 @@ class _FormNewsPageState extends State<FormNewsPage> {
                   description = descriptionController.text;
                 });
                 //  add new article method
-                // addArticle();
+                addArticle();
               }
             },
             child: Text(

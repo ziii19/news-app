@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:news/features/news/models/models.dart';
 import 'package:news/features/profile/models/models.dart';
@@ -11,7 +13,7 @@ class Database {
   Dio get dio {
     return Dio()
       ..options = BaseOptions(
-        baseUrl: 'http://portal-berita.test/api',
+        baseUrl: 'http://192.168.57.24/api',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -180,5 +182,26 @@ class Database {
     auth = prefs.getString('token');
 
     await dio.post("/posts/$id/unlike");
+  }
+
+  Future<void> createPost(
+      {required String title,
+      required String newsContent,
+      required File image}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    auth = prefs.getString('token');
+
+    MultipartFile multipartFile = await MultipartFile.fromFile(image.path);
+
+    FormData formData = FormData.fromMap({
+      'title': title,
+      'news_content': newsContent,
+      'file':
+          multipartFile, // Pastikan ini adalah MultipartFile, bukan Future<MultipartFile>
+    });
+
+    Response response = await dio.post('/posts', data: formData);
+
+    print(response.data);
   }
 }

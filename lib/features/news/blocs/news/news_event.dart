@@ -33,3 +33,15 @@ class UnlikeContent extends NewsEvent {
   @override
   List<Object> get props => [id];
 }
+
+class AddContent extends NewsEvent {
+  final String title;
+  final String newsContent;
+  final File image;
+
+  const AddContent(
+      {required this.title, required this.newsContent, required this.image});
+
+  @override
+  List<Object> get props => [title, newsContent, image];
+}
