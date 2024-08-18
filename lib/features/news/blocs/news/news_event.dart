@@ -4,7 +4,7 @@ class NewsEvent extends Equatable {
   const NewsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class GetContent extends NewsEvent {}
@@ -44,6 +44,22 @@ class AddContent extends NewsEvent {
 
   @override
   List<Object> get props => [title, newsContent, image];
+}
+
+class UpdateContent extends NewsEvent {
+  final String title;
+  final int id;
+  final String newsContent;
+  final File? image;
+
+  const UpdateContent(
+      {required this.title,
+      required this.id,
+      required this.newsContent,
+      required this.image});
+
+  @override
+  List<Object?> get props => [title, newsContent, image];
 }
 
 class DeleteContent extends NewsEvent {

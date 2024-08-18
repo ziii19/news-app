@@ -196,13 +196,40 @@ class Database {
     FormData formData = FormData.fromMap({
       'title': title,
       'news_content': newsContent,
-      'file':
-          multipartFile, // Pastikan ini adalah MultipartFile, bukan Future<MultipartFile>
+      'file': multipartFile,
     });
 
-    Response response = await dio.post('/posts', data: formData);
+    await dio.post('/posts', data: formData);
+  }
 
-    print(response.data);
+  Future<void> updatePost(
+      {required String title,
+      required String newsContent,
+      required int id,
+      File? image}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    auth = prefs.getString('token');
+
+    FormData? formData;
+
+    if (image != null) {
+      MultipartFile multipartFile = await MultipartFile.fromFile(image.path);
+
+      formData = FormData.fromMap({
+        'title': title,
+        'news_content': newsContent,
+        'file': multipartFile,
+      });
+    } else {
+      formData = FormData.fromMap({
+        'title': title,
+        'news_content': newsContent,
+      });
+    }
+
+    var res = await dio.post('/posts/$id', data: formData);
+
+    print(res);
   }
 
   Future<void> deleteContent({required int id}) async {

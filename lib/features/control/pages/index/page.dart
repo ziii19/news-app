@@ -89,6 +89,14 @@ class _ControlPageState extends State<ControlPage> {
                                     .read<NewsBloc>()
                                     .add(DeleteContent(id: data[index].id));
                               },
+                              onEdit: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FormNewsPage(
+                                              news: data[index],
+                                            )));
+                              },
                             );
                           },
                           itemCount: data.length,
