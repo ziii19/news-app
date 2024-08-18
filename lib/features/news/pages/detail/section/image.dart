@@ -15,11 +15,15 @@ class ImageSection extends StatelessWidget {
       width: double.infinity,
       height: 400,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          image: DecorationImage(
-            image: NetworkImage(postImage),
-            fit: BoxFit.cover,
-          )),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: CacheNetworkImagePlus(
+        boxFit: BoxFit.cover,
+        height: double.infinity,
+        width: double.infinity,
+        borderRadius: BorderRadius.circular(8),
+        imageUrl: postImage,
+      ),
     );
   }
 }

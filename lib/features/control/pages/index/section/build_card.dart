@@ -25,10 +25,15 @@ class _BuildNewsCard extends StatelessWidget {
             Container(
               width: 120,
               height: 120,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                image: DecorationImage(
-                    image: NetworkImage(imageUrl), fit: BoxFit.cover),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+              child: CacheNetworkImagePlus(
+                boxFit: BoxFit.cover,
+                height: double.infinity,
+                width: double.infinity,
+                borderRadius: BorderRadius.circular(8),
+                imageUrl: imageUrl,
               ),
             ),
             const SizedBox(width: 15),
