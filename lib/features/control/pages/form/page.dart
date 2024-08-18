@@ -129,14 +129,26 @@ class _FormNewsPageState extends State<FormNewsPage> {
                 decoration: BoxDecoration(
                   color: Colors.blue.withOpacity(.2),
                   borderRadius: BorderRadius.circular(20),
-                  image: decorationImage(),
+                  image: image != null
+                      ? DecorationImage(
+                          image: FileImage(File(image!.path)),
+                          fit: BoxFit.cover,
+                        )
+                      : widget.news != null
+                          ? DecorationImage(
+                              image: image != null
+                                  ? FileImage(File(image!.path))
+                                  : NetworkImage(widget.news!.postImage),
+                              fit: BoxFit.cover,
+                            )
+                          : null,
                 ),
-                child: image == null && widget.news!.postImage.isEmpty
-                    ? const Icon(
+                child: widget.news != null || image != null
+                    ? null
+                    : const Icon(
                         Icons.add_a_photo_rounded,
                         size: 100,
-                      )
-                    : null,
+                      ),
               ),
             ),
             Padding(
